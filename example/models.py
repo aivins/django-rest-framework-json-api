@@ -59,7 +59,7 @@ class Author(BaseModel):
 
 @python_2_unicode_compatible
 class AuthorBio(BaseModel):
-    author = models.OneToOneField(Author, related_name='bio')
+    author = models.OneToOneField(Author, related_name='bio', on_delete=models.CASCADE)
     body = models.TextField()
 
     def __str__(self):
@@ -71,7 +71,7 @@ class AuthorBio(BaseModel):
 
 @python_2_unicode_compatible
 class Entry(BaseModel):
-    blog = models.ForeignKey(Blog)
+    blog = models.ForeignKey(Blog, on_delete=models.CASCADE)
     headline = models.CharField(max_length=255)
     body_text = models.TextField(null=True)
     pub_date = models.DateField(null=True)
@@ -91,12 +91,13 @@ class Entry(BaseModel):
 
 @python_2_unicode_compatible
 class Comment(BaseModel):
-    entry = models.ForeignKey(Entry, related_name='comments')
+    entry = models.ForeignKey(Entry, related_name='comments', on_delete=models.CASCADE)
     body = models.TextField()
     author = models.ForeignKey(
         Author,
         null=True,
-        blank=True
+        blank=True,
+        on_delete=models.CASCADE
     )
 
     def __str__(self):
@@ -121,7 +122,7 @@ class ResearchProject(Project):
 @python_2_unicode_compatible
 class Company(models.Model):
     name = models.CharField(max_length=100)
-    current_project = models.ForeignKey(Project, related_name='companies')
+    current_project = models.ForeignKey(Project, related_name='companies', on_delete=models.CASCADE)
     future_projects = models.ManyToManyField(Project)
 
     def __str__(self):

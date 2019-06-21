@@ -21,7 +21,7 @@ from rest_framework_json_api.utils import (
 if django.VERSION >= (1, 10):
     from django.urls import NoReverseMatch
 else:
-    from django.core.urlresolvers import NoReverseMatch
+    from django.urls import NoReverseMatch
 
 if django.VERSION < (1, 9):
     from django.db.models.fields.related import (
